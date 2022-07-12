@@ -1,20 +1,12 @@
 <launch>
-  <include
-    file="$(find gazebo_ros)/launch/empty_world.launch" />
-  <node
-    name="tf_footprint_base"
-    pkg="tf"
-    type="static_transform_publisher"
-    args="0 0 0 0 0 0 base_link base_footprint 40" />
-  <node
-    name="spawn_model"
-    pkg="gazebo_ros"
-    type="spawn_model"
-    args="-file $(find tianbot_mini_description)/urdf/tianbot_mini_description.urdf -urdf -model tianbot_mini_description"
-    output="screen" />
-  <node
-    name="fake_joint_calibration"
-    pkg="rostopic"
-    type="rostopic"
-    args="pub /calibrated std_msgs/Bool true" />
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+  <arg name="world_name" value="$(find myrobot_description)/world/test.world"/>
+  </include>
+
+  <!-- Spawn a robot into Gazebo -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find myrobot_description)/urdf/my_robot2.urdf -urdf -model my_robot" />
+
 </launch>
+
+
